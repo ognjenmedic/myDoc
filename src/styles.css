@@ -1,1 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  font-family: "Poppins", sans-serif;
+
+  /* background-image: url("/assets/doctor-bg@1x.472479ac.png");
+  background-repeat: no-repeat;
+  background-size: cover; */
+}
+/* body {
+  background-image: url("/assets/doctor-bg@1x.472479ac.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* height: 100%; */
+/* } */
