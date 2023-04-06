@@ -6,6 +6,7 @@
         *ngFor="let item of specialties"
         class="col specialty-card"
         routerLink="/doctor-card"
+        (click)="selectSpecialty(item.specialty)"
       >
         <img
           src="{{ item.image }} "

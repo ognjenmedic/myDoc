@@ -1,3 +1,4 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
 import { EventEmitter, Output } from '@angular/core';
 import { Doctor } from 'src/app/models/doctor';
@@ -18,23 +19,27 @@ export class DoctorDetailsComponent implements OnInit {
 
   // howItWorksEnabled = true;
 
-  constructor(private doctorService: DoctorService) {
+  constructor(
+    private doctorService: DoctorService,
+    private route: ActivatedRoute
+  ) {
     this.showMoreInfo = false;
     this.linkText = 'Know More';
   }
 
   ngOnInit(): void {
-    this.doctorService.getDoctor().subscribe((doctor) => {
-      this.doctor = doctor;
-    });
+    const doctorId = +(this.route.snapshot.paramMap.get('id') ?? 0);
+    this.getDoctorById(doctorId);
   }
-  // enabledHowItWorks() {
-  //   this.howItWorksEnabled = false;
-  // }
+
+  getDoctorById(doctorId: number) {
+    this.doctorService
+      .getDoctorById(doctorId)
+      .subscribe((doctor) => (this.doctor = doctor));
+  }
 
   onMoreInfoClicked() {
     this.moreInfoClicked.emit();
-    // this.showMoreInfo = !this.showMoreInfo;
     this.linkText === 'Know More'
       ? (this.linkText = 'How It Works')
       : (this.linkText = 'Know More');

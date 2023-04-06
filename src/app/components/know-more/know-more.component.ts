@@ -16,7 +16,7 @@ export class KnowMoreComponent implements OnInit {
     public toggleComponent: ToggleComponentsService,
     private doctorService: DoctorService
   ) {}
-  howItWorksEnabled = true;
+  // howItWorksEnabled = true;
 
   ngOnInit(): void {
     this.toggleComponent.hideHeader();
@@ -24,7 +24,7 @@ export class KnowMoreComponent implements OnInit {
     // this.doctorService.getDoctor();
   }
 
-  toggleMoreInfo() {
-    this.howItWorksEnabled = !this.howItWorksEnabled;
-  }
+  // toggleMoreInfo() {
+  //   this.howItWorksEnabled = !this.howItWorksEnabled;
+  // }
 }

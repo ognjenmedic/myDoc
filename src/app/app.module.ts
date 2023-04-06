@@ -23,6 +23,8 @@ import { CallComponent } from './components/call/call.component';
 import { MoreInfoComponent } from './components/more-info/more-info.component';
 import { ConsultButtonComponent } from './components/consult-button/consult-button.component';
 import { DoctorService } from './services/doctor.service';
+import { SpecialtyService } from './services/specialty.service';
+import { DoctorInfoComponent } from './components/doctor-info/doctor-info.component';
 
 @NgModule({
   declarations: [
@@ -45,9 +47,10 @@ import { DoctorService } from './services/doctor.service';
     CallComponent,
     MoreInfoComponent,
     ConsultButtonComponent,
+    DoctorInfoComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
-  providers: [ToggleComponentsService, DoctorService],
+  providers: [ToggleComponentsService, DoctorService, SpecialtyService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,9 +1,10 @@
 import { DOCTORS } from './../../../db-data';
 import { Component, OnDestroy, OnInit, Output } from '@angular/core';
 import { ToggleComponentsService } from 'src/app/services/toggle-components.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Doctor } from 'src/app/models/doctor';
 import { DoctorService } from 'src/app/services/doctor.service';
+import { SpecialtyService } from 'src/app/services/specialty.service';
 
 @Component({
   selector: 'app-doctor-card',
@@ -14,16 +15,15 @@ export class DoctorCardComponent implements OnInit, OnDestroy {
   // @Output()
   // doctor!: Doctor;
   selectedDoctor!: Doctor;
-  doctors: any;
-  isHomePage: boolean;
-  isDoctorCardPage: boolean;
+  doctors: Doctor[];
+
   constructor(
     public toggleComponent: ToggleComponentsService,
     private route: ActivatedRoute,
-    private doctorService: DoctorService
+    private doctorService: DoctorService,
+    public specialtyService: SpecialtyService,
+    public router: Router
   ) {
-    this.isHomePage = false;
-    this.isDoctorCardPage = true;
     this.doctors = DOCTORS;
   }
 
@@ -31,9 +31,11 @@ export class DoctorCardComponent implements OnInit, OnDestroy {
     this.toggleComponent.hideHeader();
     this.toggleComponent.hideSpecialties();
     this.toggleComponent.showNavbar();
-    this.isHomePage = this.route.snapshot.routeConfig?.path === '';
-    this.isDoctorCardPage =
-      this.route.snapshot.routeConfig?.path === 'doctor-card';
+
+    const specialty = this.route.snapshot.paramMap.get('specialty');
+    if (specialty) {
+      this.specialtyService.updateSelectedSpecialty(specialty);
+    }
   }
 
   ngOnDestroy(): void {
@@ -44,10 +46,10 @@ export class DoctorCardComponent implements OnInit, OnDestroy {
 
   onClickDoctor(clickedDoctor: Doctor) {
     this.doctorService.setDoctor(clickedDoctor);
+    this.router.navigate(['know-more', clickedDoctor.id]);
   }
 
   onClickToConsult(doctor: Doctor) {
     this.doctorService.setDoctor(doctor);
-    console.log(doctor);
   }
 }
